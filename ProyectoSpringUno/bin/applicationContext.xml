@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-3.1.xsd
+">
+
+<!-- cargar propiedades desde un archivo externo -->
+<context:property-placeholder location="classpath:datosEmpresa.propiedades"/>
+
+<!-- creación de la dependencia -->
+<bean id="miInforme" class="es.fdeazagra.IoC.Informe"></bean>
+
+<!-- creación de la dependencia con constructor -->
+<bean id="miEmpleado" class="es.fdeazagra.IoC.JefeEmpleado">
+
+<constructor-arg ref="miInforme"></constructor-arg>
+
+</bean>
+
+<!-- creación de la dependencias con setter -->
+<bean id="miSecretarioEmpleado" class="es.fdeazagra.IoC.SecretarioEmpleado">
+
+<property name="informeNuevo" ref="miInforme"></property>
+<property name="email" value="secretaria@fdeazagra.es"></property> <!-- damos un valor al campo email -->
+<property name="nombreEmpresa" value="${nombreEmpresa}"></property> <!-- cargamos del archivo externo el valor del campo nombreEmpresa -->
+
+</bean>
+</beans>
